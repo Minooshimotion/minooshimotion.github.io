@@ -11,6 +11,7 @@
     <title>minooshi — Motion Designer &amp; Video Editor</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%23c8ff3d%22/><text x=%2250%22 y=%2268%22 text-anchor=%22middle%22 font-size=%2262%22 font-family=%22Arial%22 font-weight=%22700%22 fill=%22%230b0b0d%22>M</text></svg>" />
     <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./process.css" />
     <script src="./script.js" defer></script>
   </head>
   <body>
@@ -84,12 +85,33 @@
           <span class="eyebrow">01 / Selected work</span>
           <h2><span>Motion, form</span><span><em>&amp;</em> rhythm.</span></h2>
           <div class="section-intro">
-            <strong class="work-count" aria-hidden="true">05</strong>
-            <p>Five selected pieces spanning 3D motion, logo animation, and visual storytelling.</p>
+            <strong class="work-count" aria-hidden="true">06</strong>
+            <p>Six selected projects spanning 3D motion, logo animation, and character artwork. Step inside the process behind Robot, Papillon, Dracula, and Coffee.</p>
           </div>
         </div>
 
         <div class="project-grid" id="project-grid"></div>
+        <section class="article-slider" id="process-stories" aria-label="Behind the work" aria-roledescription="carousel">
+          <div class="article-slider-heading"><span class="eyebrow">Behind the work / Process stories</span><span class="article-count" aria-hidden="true">01 / 04</span></div>
+          <div class="article-slides">
+            <article class="robot-feature article-slide is-active" id="story-robot" role="group" aria-roledescription="slide" aria-label="1 of 4: Robot">
+              <a class="robot-feature-image" href="./robot.html" aria-label="Explore Robot: a character reimagined"><img src="./assets/process/robot-reworked.png" width="2388" height="1668" alt="Reworked robot with weathered gray metal and large dark eyes" loading="lazy" /></a>
+              <div class="robot-feature-copy"><span class="eyebrow">Character artwork · Process story</span><h3>A familiar face.<br />A different story.</h3><p>Reworking a bright yellow robot into an older, weathered character, while keeping the charm that made it memorable.</p><a class="process-link" href="./robot.html">Explore the robot process <span aria-hidden="true">↗</span></a></div>
+            </article>
+            <article class="robot-feature article-slide" id="story-papillon" role="group" aria-roledescription="slide" aria-label="2 of 4: Papillon" aria-hidden="true" inert>
+              <a class="robot-feature-image" href="./papillon.html" aria-label="Explore Papillon: cocoon to butterfly"><img src="./assets/process/butterfly.png" width="1920" height="1080" alt="Pale pink butterfly artwork with delicate wing details" loading="lazy" /></a>
+              <div class="robot-feature-copy"><span class="eyebrow">Logo animation · Process story</span><h3>A quiet beginning.<br />A beautiful reveal.</h3><p>From the first storyboard to a butterfly in flight. Discover the transformation behind Papillon’s logo animation.</p><a class="process-link" href="./papillon.html">Explore the Papillon process <span aria-hidden="true">↗</span></a></div>
+            </article>
+<article class="robot-feature article-slide" id="story-dracula" role="group" aria-roledescription="slide" aria-label="3 of 4: Dracula" aria-hidden="true" inert><a class="robot-feature-image" href="./dracula.html" aria-label="Explore Roll with Dracula"><img src="./assets/projects/01-brle1gw.jpg" alt="Roll with Dracula animation poster" loading="lazy" /></a><div class="robot-feature-copy"><span class="eyebrow">3D motion · Process story</span><h3>A dark corridor.<br />An unexpected roll.</h3><p>A Dracula-themed reveal for a custom dice set in Mencherz. The storyboard turns a product introduction into a short journey through a red-lit castle.</p><a class="process-link" href="./dracula.html">Explore the Dracula process <span aria-hidden="true">↗</span></a></div></article>
+<article class="robot-feature article-slide" id="story-coffee" role="group" aria-roledescription="slide" aria-label="4 of 4: Coffee" aria-hidden="true" inert><a class="robot-feature-image" href="./coffee.html" aria-label="Explore Coffee — 3D Product Animation"><img src="./assets/projects/02-hqdhl02.jpg" alt="Coffee — 3D Product Animation animation poster" loading="lazy" /></a><div class="robot-feature-copy"><span class="eyebrow">3D motion · Process story</span><h3>A familiar ritual.<br />A playful reveal.</h3><p>A café counter, a freshly filled cup, and a transformation into the product. A short coffee animation that connects an everyday ritual to a brand reveal.</p><a class="process-link" href="./coffee.html">Explore the Coffee process <span aria-hidden="true">↗</span></a></div></article>
+          </div>
+          <div class="article-slider-controls" hidden>
+            <div class="article-selectors" role="group" aria-label="Choose a process story"><button type="button" data-story="0" aria-controls="story-robot" aria-pressed="true"><span>01</span> Robot</button><button type="button" data-story="1" aria-controls="story-papillon" aria-pressed="false"><span>02</span> Papillon</button><button type="button" data-story="2" aria-controls="story-dracula" aria-pressed="false"><span>03</span> Dracula</button><button type="button" data-story="3" aria-controls="story-coffee" aria-pressed="false"><span>04</span> Coffee</button></div>
+            <div class="article-arrows"><button type="button" data-story-prev aria-label="Previous article">←</button><button type="button" data-story-next aria-label="Next article">→</button><button type="button" data-story-play aria-label="Pause automatic switching">Pause <span aria-hidden="true">Ⅱ</span></button></div>
+          </div>
+          <p class="slider-status" aria-live="polite" aria-atomic="true"></p>
+          <noscript><p class="process-directory">Read the stories: <a href="./robot.html">Robot</a> / <a href="./papillon.html">Papillon logo animation</a> / <a href="./dracula.html">Dracula</a> / <a href="./coffee.html">Coffee</a></p></noscript>
+        </section>
         <noscript><p class="no-script">JavaScript is needed for the project gallery and motion effects.</p></noscript>
       </section>
 

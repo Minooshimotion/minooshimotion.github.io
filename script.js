@@ -1,10 +1,10 @@
 const projects = [
   {
-    id: '01', title: 'Roll with Dracula | Mencherz Dice Promo', category: '3D Motion', client: 'Mencherz', year: '1405', role: 'Motion Designer', word: 'DRACULA', duration: '00:19', poster: './assets/projects/01-brle1gw.jpg', pageUrl: 'https://www.aparat.com/v/brle1gw', embedUrl: 'https://www.aparat.com/video/video/embed/videohash/brle1gw/vt/frame?titleShow=true',
+    id: '01', storyUrl: './dracula.html', title: 'Roll with Dracula | Mencherz Dice Promo', category: '3D Motion', client: 'Mencherz', year: '1405', role: 'Motion Designer', word: 'DRACULA', duration: '00:19', poster: './assets/projects/01-brle1gw.jpg', pageUrl: 'https://www.aparat.com/v/brle1gw', embedUrl: 'https://www.aparat.com/video/video/embed/videohash/brle1gw/vt/frame?titleShow=true',
     description: 'A dark, Dracula-themed promotional animation introducing a custom dice set for the Mencherz mobile game. Existing dice assets were developed into an atmospheric 3D piece focused on presentation, animation, and compositing.',
   },
   {
-    id: '02', title: 'Coffee Brand | 3D Product Animation', category: '3D Motion', client: 'Coffee Brand', year: '1405', role: 'Motion Designer', word: 'COFFEE', duration: '00:08', poster: './assets/projects/02-hqdhl02.jpg', pageUrl: 'https://www.aparat.com/v/hqdhl02', embedUrl: 'https://www.aparat.com/video/video/embed/videohash/hqdhl02/vt/frame?titleShow=true',
+    id: '02', storyUrl: './coffee.html', title: 'Coffee Brand | 3D Product Animation', category: '3D Motion', client: 'Coffee Brand', year: '1405', role: 'Motion Designer', word: 'COFFEE', duration: '00:08', poster: './assets/projects/02-hqdhl02.jpg', pageUrl: 'https://www.aparat.com/v/hqdhl02', embedUrl: 'https://www.aparat.com/video/video/embed/videohash/hqdhl02/vt/frame?titleShow=true',
     description: 'A stylized coffee-brand animation combining 3D product visuals with motion graphics in a short promotional piece. Created in Blender, with motion design and compositing in After Effects.',
   },
   {
@@ -12,7 +12,7 @@ const projects = [
     description: 'A playful motion piece for Nostalgic, blending 3D elements and graphic animation to translate the shop’s nostalgic identity into movement. Created in After Effects.',
   },
   {
-    id: '04', title: 'Cocoon to Butterfly | Logo Animation', category: 'Logo Motion', client: 'Clothes Brand', year: '1405', role: 'Motion Designer', word: 'COCOON', duration: '00:05', poster: './assets/projects/04-qvf1m2v.jpg', pageUrl: 'https://www.aparat.com/v/qvf1m2v', embedUrl: 'https://www.aparat.com/video/video/embed/videohash/qvf1m2v/vt/frame?titleShow=true',
+    id: '04', storyUrl: './papillon.html', title: 'Cocoon to Butterfly | Logo Animation', category: 'Logo Motion', client: 'Papillon', year: '1405', role: 'Motion Designer', word: 'COCOON', duration: '00:05', poster: './assets/projects/04-qvf1m2v.jpg', pageUrl: 'https://www.aparat.com/v/qvf1m2v', embedUrl: 'https://www.aparat.com/video/video/embed/videohash/qvf1m2v/vt/frame?titleShow=true',
     description: 'A logo animation built around transformation: a cocoon gradually evolves into a butterfly before revealing the final mark through a smooth visual transition.',
   },
   {
@@ -27,10 +27,9 @@ projectGrid.innerHTML = projects
   .map(
     (project, index) => `
       <article class="project" data-reveal>
-        <button
+        <${project.storyUrl ? 'a' : 'button'}
           class="project-card"
-          type="button"
-          data-project-id="${project.id}"
+          ${project.storyUrl ? `href="${project.storyUrl}"` : `type="button" data-project-id="${project.id}"`}
           data-scroll-depth="${index % 2 === 0 ? '1' : '-1'}"
           aria-label="Open ${project.title}, ${project.category}"
         >
@@ -40,11 +39,12 @@ projectGrid.innerHTML = projects
           <span class="project-word" aria-hidden="true">${project.word}</span>
           <span class="project-play" aria-hidden="true"></span>
           <span class="project-format">16:9 · ${project.duration}</span>
-        </button>
+        </${project.storyUrl ? 'a' : 'button'}>
         <div class="project-meta">
           <div><h3>${project.title}</h3><p>${project.client}</p></div>
           <div><p>${project.category}</p><p>${project.year}</p></div>
         </div>
+        ${project.storyUrl ? `<a class="process-link" href="${project.storyUrl}">Explore the process <span aria-hidden="true">↗</span></a>` : ''}
       </article>
     `,
   )
@@ -314,3 +314,64 @@ renderScrollEffects();
 window.addEventListener('scroll', queueScrollEffects, { passive: true });
 window.addEventListener('resize', queueScrollEffects);
 reducedMotion.addEventListener('change', queueScrollEffects);
+
+// Process stories: automatic rotation pauses while someone reads or interacts.
+const storySlider = document.querySelector('.article-slider');
+if (storySlider) {
+  const slides = [...storySlider.querySelectorAll('.article-slide')];
+  const selectors = [...storySlider.querySelectorAll('[data-story]')];
+  const playButton = storySlider.querySelector('[data-story-play]');
+  const status = storySlider.querySelector('.slider-status');
+  let active = 0;
+  let paused = reducedMotion.matches;
+  let hovered = false;
+  let focused = false;
+  let visible = false;
+  let timer;
+  storySlider.querySelector('.article-slider-controls').hidden = false;
+
+  function scheduleStory() {
+    clearTimeout(timer);
+    if (!paused && !hovered && !focused && visible && !document.hidden) {
+      timer = setTimeout(() => showStory(active + 1), 7000);
+    }
+  }
+  function updatePlayButton() {
+    playButton.innerHTML = paused ? 'Play <span aria-hidden="true">▶</span>' : 'Pause <span aria-hidden="true">Ⅱ</span>';
+    playButton.setAttribute('aria-label', paused ? 'Start automatic switching' : 'Pause automatic switching');
+  }
+  function showStory(index, manual = false) {
+    active = (index + slides.length) % slides.length;
+    slides.forEach((slide, i) => {
+      slide.classList.toggle('is-active', i === active);
+      slide.inert = i !== active;
+      slide.setAttribute('aria-hidden', String(i !== active));
+      selectors[i].setAttribute('aria-pressed', String(i === active));
+    });
+    storySlider.querySelector('.article-count').textContent = `${String(active + 1).padStart(2, '0')} / ${String(slides.length).padStart(2, '0')}`;
+    if (manual) status.textContent = slides[active].getAttribute('aria-label');
+    scheduleStory();
+  }
+  selectors.forEach((button, i) => button.addEventListener('click', () => showStory(i, true)));
+  storySlider.querySelector('[data-story-prev]').addEventListener('click', () => showStory(active - 1, true));
+  storySlider.querySelector('[data-story-next]').addEventListener('click', () => showStory(active + 1, true));
+  playButton.addEventListener('click', () => {
+    paused = !paused;
+    updatePlayButton();
+    scheduleStory();
+  });
+  storySlider.addEventListener('pointerenter', (event) => { if (event.pointerType !== 'touch') { hovered = true; scheduleStory(); } });
+  storySlider.addEventListener('pointerleave', () => { hovered = false; scheduleStory(); });
+  storySlider.addEventListener('focusin', () => { focused = true; scheduleStory(); });
+  storySlider.addEventListener('focusout', (event) => { focused = storySlider.contains(event.relatedTarget); scheduleStory(); });
+  document.addEventListener('visibilitychange', scheduleStory);
+  reducedMotion.addEventListener('change', () => { paused = reducedMotion.matches; updatePlayButton(); scheduleStory(); });
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      scheduleStory();
+    }, { threshold: 0.25 }).observe(storySlider);
+  } else { visible = true; }
+  updatePlayButton();
+  scheduleStory();
+}
