@@ -88,5 +88,5 @@
 #story-dracula .robot-feature-image, #story-coffee .robot-feature-image { background:#17171b; }
 @media(max-width:640px) { .article-selectors { gap:8px; } .article-selectors button { padding:10px 14px; } }
 .case-motion { display:grid; justify-items:center; padding:clamp(18px,4vw,48px); border-radius:16px; background:#000; }
-.case-motion-video { display:block; width:auto; max-width:100%; height:auto; max-height:620px; aspect-ratio:720/1108; background:#000; }
+.case-motion-video { display:block; width:auto; max-width:100%; height:auto; max-height:620px; aspect-ratio:720/1036; background:#000; }
 .case-motion figcaption { width:100%; }
