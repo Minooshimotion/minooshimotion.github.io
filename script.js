@@ -54,12 +54,11 @@ const projectModal = document.querySelector('#project-modal');
 const mobileMenu = document.querySelector('#mobile-menu');
 const modalTitle = document.querySelector('#modal-title');
 const modalSubtitle = document.querySelector('#modal-subtitle');
-const modalWord = document.querySelector('#modal-word');
 const modalRole = document.querySelector('#modal-role');
 const modalClient = document.querySelector('#modal-client');
 const modalDescription = document.querySelector('#modal-description');
 const modalFrame = document.querySelector('#modal-frame');
-const modalPlaceholder = document.querySelector('#modal-placeholder');
+const modalReel = document.querySelector('#modal-reel');
 const modalSource = document.querySelector('#modal-source');
 
 function setPageLocked(locked) {
@@ -69,6 +68,8 @@ function setPageLocked(locked) {
 let moveMotionCursor = () => {};
 
 function openProject(project) {
+  modalReel.pause();
+  modalReel.hidden = true;
   modalTitle.textContent = project.title;
   modalSubtitle.textContent = `${project.category} · ${project.year} · ${project.duration}`;
   modalRole.textContent = project.role;
@@ -76,7 +77,6 @@ function openProject(project) {
   modalDescription.textContent = project.description;
   modalSource.href = project.pageUrl;
   modalSource.hidden = false;
-  modalPlaceholder.hidden = true;
   modalFrame.hidden = false;
   modalFrame.title = `${project.title} on Aparat`;
   modalFrame.src = project.embedUrl;
@@ -86,19 +86,20 @@ function openProject(project) {
 }
 
 function openReel() {
-  modalTitle.textContent = 'Showreel 2026';
-  modalSubtitle.textContent = 'Motion design and editing reel';
-  modalWord.textContent = 'REEL';
+  modalTitle.textContent = 'An Idea Is Born';
+  modalSubtitle.textContent = 'Showreel · 2026 · 00:14';
   modalRole.textContent = 'Motion design · Video editing';
-  modalClient.textContent = 'Selected work';
-  modalDescription.textContent = 'The showreel is still a placeholder and can be connected as soon as the final video is available.';
+  modalClient.textContent = 'Personal project';
+  modalDescription.textContent = 'An Idea Is Born — a short portrait video.';
   modalSource.hidden = true;
   modalFrame.hidden = true;
   modalFrame.src = 'about:blank';
-  modalPlaceholder.hidden = false;
+  modalReel.hidden = false;
   projectModal.showModal();
   moveMotionCursor(projectModal);
   setPageLocked(true);
+  modalReel.currentTime = 0;
+  modalReel.play().catch(() => {});
 }
 
 projectGrid.addEventListener('click', (event) => {
@@ -111,6 +112,8 @@ projectGrid.addEventListener('click', (event) => {
 document.querySelector('[data-open-reel]').addEventListener('click', openReel);
 document.querySelector('[data-close-modal]').addEventListener('click', () => projectModal.close());
 projectModal.addEventListener('close', () => {
+  modalReel.pause();
+  modalReel.currentTime = 0;
   modalFrame.src = 'about:blank';
   moveMotionCursor(document.body);
   setPageLocked(false);

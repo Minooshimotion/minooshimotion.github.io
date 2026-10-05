@@ -69,7 +69,7 @@
             <span>M</span><span>O</span><span>V</span><span>E</span>
           </span>
           <span class="play-button" aria-hidden="true"></span>
-          <span class="reel-caption">Play full reel · 01:24</span>
+          <span class="reel-caption">Play full reel · 00:14</span>
         </button>
       </section>
 
@@ -196,6 +196,18 @@
         <p id="modal-subtitle" data-slot="dialog-description">Motion design</p>
       </header>
       <div class="modal-video" id="modal-video">
+        <video
+          id="modal-reel"
+          hidden
+          controls
+          playsinline
+          preload="none"
+          poster="./assets/reel/an-idea-is-born.jpg"
+          aria-label="An Idea Is Born showreel video"
+        >
+          <source src="./assets/reel/an-idea-is-born.mp4" type="video/mp4" />
+          Your browser does not support this video.
+        </video>
         <iframe
           id="modal-frame"
           title="Project video"
@@ -204,16 +216,11 @@
           referrerpolicy="strict-origin-when-cross-origin"
           allowfullscreen
         ></iframe>
-        <div class="modal-placeholder" id="modal-placeholder" aria-hidden="true">
-          <span class="modal-video-label">SHOWREEL PLACEHOLDER</span>
-          <span class="modal-play"></span>
-          <strong id="modal-word">REEL</strong>
-        </div>
       </div>
       <div class="modal-details">
         <div><span>Role</span><p id="modal-role">Motion design · Video editing</p></div>
         <div><span>Client</span><p id="modal-client">Selected work</p></div>
-        <p class="modal-description" id="modal-description">Showreel details will be added when the final reel is ready.</p>
+        <p class="modal-description" id="modal-description">An Idea Is Born — a short portrait video.</p>
         <a class="modal-source" id="modal-source" href="#" target="_blank" rel="noopener noreferrer">View on Aparat <span aria-hidden="true">↗</span></a>
       </div>
     </dialog>
